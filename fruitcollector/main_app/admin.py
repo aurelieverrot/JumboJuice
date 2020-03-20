@@ -1,8 +1,8 @@
 from django.contrib import admin
 # Import your models
-from .models import Fruit, Smoothie, Vitamin
+from .models import Fruit, Juice, Vitamin
 
 # Register your models here.
 admin.site.register(Fruit)
-admin.site.register(Smoothie)
+admin.site.register(Juice)
 admin.site.register(Vitamin)

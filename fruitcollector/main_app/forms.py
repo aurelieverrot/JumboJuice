@@ -1,12 +1,17 @@
 from django.forms import ModelForm
-from .models import Smoothie, Fruit
+from .models import Juice, Fruit
 
 class FruitForm(ModelForm):
     class Meta:
         model = Fruit
         fields = ('name', 'region', 'description')
 
-class SmoothieForm(ModelForm):
+class JuiceForm(ModelForm):
     class Meta:
-        model = Smoothie
+        model = Juice
         fields = ['name', 'description', 'drink_type']
+
+
+class ProfileForm(ModelForm):
+    pass
+  # to allow User to edit or delete the profile
