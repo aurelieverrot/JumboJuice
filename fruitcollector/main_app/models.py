@@ -25,12 +25,11 @@ class Fruit(models.Model):
     region = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     vitamins = models.ManyToManyField(Vitamin)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
 
-class Smoothie(models.Model):
+class Juice(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     drink_type = models.CharField(
@@ -38,11 +37,20 @@ class Smoothie(models.Model):
         choices=DRINK_TYPES,
         default=DRINK_TYPES[0][0]
     )
-    fruit = models.ForeignKey(
-        Fruit, 
-        on_delete=models.CASCADE,
-        default=1
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fruits = models.ManyToManyField(Fruit)
     
     def __str__(self):
         return f'{self.name} {self.get_drink_type_display()}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    bio = models.CharField(max_length=250)
+    fav_juice = models.CharField(max_length=50)
+
+    def __str__(self):
+      return f'{self.first_name}'
+

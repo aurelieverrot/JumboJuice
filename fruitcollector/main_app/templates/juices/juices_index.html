@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Juices List</h1>
+{% comment %} 
+{% for juice in juices %}
+  <div class="card">
+    <a href="{% url 'detail' juice.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ juice.name }}</span>
+        <p>Region: {{ fruit.region }}</p>
+        <p>Description: {{ fruit.description }}</p>
+      </div>
+    </a>
+  </div>
+{% endfor %} {% endcomment %}
+
+{% endblock %}
