@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Fruit Details</h1>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ fruit.name }}</span>
+                <p>Region: {{ fruit.region }}</p>
+                <p>Description: {{ fruit.description }}</p>
+            </div>
+
+            <div class="card-action">
+                <a href="{% url 'fruits_update' fruit.id %}">Edit</a>
+                <a href="{% url 'fruits_delete' fruit.id %}">Delete</a>
+            </div>
+        </div>
+    </div>
+
+<hr>
+<div class="row">
+    <div class="col s6">
+        <h3>{{ fruit.name }}'s Vitamins</h3>
+        {% if fruit.vitamins.count %}
+        {% for vitamin in fruit.vitamins.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    <span>Vitamin {{ vitamin.name }} </span> 
+                </span>
+                <span>{{ vitamin.health_benefits }}</span>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>No vitamins found yet</h5>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Available vitamins -->
+</div>
+<!-- Available toys will come after this line -->
+<div class="col s6">
+  <h3>Available Vitamins</h3>
+  {% if vitamins.count %}
+    {% for vitamin in vitamins.all %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">
+            <span>Vitamin {{ vitamin.name }} </span> 
+                </span>
+                <span>{{ vitamin.health_benefits }}</span>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'assoc_vitamin' fruit.id vitamin.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Add</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h5>{{Fruit.name}} Already Has All Vitamins</h5>
+  {% endif %}
+</div>
+
+<div class="col s6">
+    <h3>Smoothie ideas</h3>
+    <!-- form code below -->
+    <form action="{% url 'add_smoothie' fruit.id %}" method="post">
+        {% csrf_token %}
+        {{ smoothie_form.as_p }}
+        <input type="submit" class="btn" value="Add Smoothie">
+    </form>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Drink type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for smoothie in fruit.smoothie_set.all %}
+            <tr>
+                <td>{{smoothie.name}}</td>
+                <td>{{smoothie.description}}</td>
+                <td>{{smoothie.get_drink_type_display}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+<script>
+    //   add additional JS to initialize select below
+    var selectEl = document.getElementById('id_drink_type');
+    M.FormSelect.init(selectEl);
+</script>
+{% endblock %}
