@@ -22,8 +22,6 @@ class Vitamin(models.Model):
 
 class Fruit(models.Model):
     name = models.CharField(max_length=100)
-    region = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
     vitamins = models.ManyToManyField(Vitamin)
     
     def __str__(self):

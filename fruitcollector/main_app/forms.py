@@ -4,7 +4,7 @@ from .models import Juice, Fruit
 class FruitForm(ModelForm):
     class Meta:
         model = Fruit
-        fields = ('name', 'region', 'description')
+        fields = ['name']
 
 class JuiceForm(ModelForm):
     class Meta:

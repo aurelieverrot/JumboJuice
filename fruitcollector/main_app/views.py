@@ -33,14 +33,19 @@ def fruits_detail(request, fruit_id):
     return render(request, 'fruits/detail.html', {'fruit':fruit, 'smoothie_form': smoothie_form, 'vitamins': vitamins_nonrelated })
 
 @login_required
-def add_smoothie(request, fruit_id):
-    form = SmoothieForm(request.POST)
-    # validate the form
-    if form.is_valid():
-        new_smoothie = form.save(commit=False)
-        new_smoothie.fruit_id = fruit_id
-        new_smoothie.save()
-    return redirect('detail', fruit_id=fruit_id)
+def new_fruit(request):
+    if request.method == 'POST':
+        form = FruitForm(request.POST)
+        # validate the form
+        if form.is_valid():
+            fruit = form.save(commit=False)
+            fruit.juice = request.fruit
+            fruit.save()
+            return redirect('detail', fruit.id)
+    else:
+        form = FruitForm()
+    context = {'form': form}
+    return render(request, 'fruits/fruit_form.html', context)
 
 @login_required
 def assoc_vitamin(request, fruit_id, vitamin_id):
