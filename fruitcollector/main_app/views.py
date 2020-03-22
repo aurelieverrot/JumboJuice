@@ -19,21 +19,24 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+
 @login_required
-def juices_index(request): # works
+def juices_index(request): 
     juices = Juice.objects.all()
     return render(request, 'juices/juices_index.html', { 'juices': juices})
 
+# 
 @login_required
-def fruits_detail(request, fruit_id): # 
+def fruits_detail(request, fruit_id): 
     fruit = Fruit.objects.get(id=fruit_id)
     # gets the vitamins not associated with the fruit
     vitamins_nonrelated = Vitamin.objects.exclude(id__in = fruit.vitamins.all().values_list('id'))
     juice_form = JuiceForm()
     return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins_nonrelated })
 
+# form works
 @login_required
-def new_fruit(request): # form works, submission not yet
+def new_fruit(request): 
     if request.method == 'POST':
         form = FruitForm(request.POST)
         # validate the form
@@ -47,8 +50,9 @@ def new_fruit(request): # form works, submission not yet
     context = {'form': form}
     return render(request, 'fruits/fruit_form.html', context)
 
+# works
 @login_required
-def fruits_index(request): # error on html because html needs fruit_detail to work.
+def fruits_index(request): 
     fruits = Fruit.objects.all()
     return render(request, 'fruits/index.html', { 'fruits': fruits })
 
