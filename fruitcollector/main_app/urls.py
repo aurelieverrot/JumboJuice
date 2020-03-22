@@ -6,8 +6,11 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
-    path('juices/new/', views.new_juice, name='new_juice'),
     path('juices/', views.juices_index, name='juices_index'),
+    path('juices/new/', views.new_juice, name='new_juice'),
+    path('juices/<int:juice_id>', views.juice_detail, name='juice_detail'),
+    path('juices/<int:juice_id>/edit', views.juice_update, name='juice_update'),
+    path('juice/<int:juice_id>/delete', views.juice_delete, name='juice_delete'),
     # path('fruits/new/', views.new_fruit, name='new_fruit'),
     # path('fruits/', views.fruits_index, name='index'),
     # path('fruits/<int:fruit_id>', views.fruits_detail, name='detail'),

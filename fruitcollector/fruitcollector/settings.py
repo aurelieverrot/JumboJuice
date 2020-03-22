@@ -122,6 +122,6 @@ STATIC_URL = '/static/'
 
 # Add this variable to specify where successful logins should redirect to
 # The django.contrib.auth app uses that value of the LOGIN_REDIRECT_URL variable, if it exists, to redirect to after the user logs in.
-LOGIN_REDIRECT_URL = '/fruits/'
+LOGIN_REDIRECT_URL = '/juices/'
 
 LOGOUT_REDIRECT_URL='/'

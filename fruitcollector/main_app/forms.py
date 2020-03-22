@@ -9,7 +9,7 @@ class FruitForm(ModelForm):
 class JuiceForm(ModelForm):
     class Meta:
         model = Juice
-        fields = ['name', 'description', 'drink_type']
+        fields = ['name', 'description', 'drink_type', 'fruits']
 
 
 class ProfileForm(ModelForm):
