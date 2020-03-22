@@ -27,7 +27,7 @@
           {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
           {% if user.is_authenticated %}
             {% comment %} <li><a href="{% url 'index' %}">View All Juices</a></li> {% endcomment %}
-            {% comment %} <li><a href="{% url 'index' %}">View All Fruits</a></li> {% endcomment %}
+            <li><a href="{% url 'index' %}">View All Fruits</a></li>
             {% comment %} <li><a href="{% url 'new_fruit' %}">Add a new Fruit</a></li> {% endcomment %}
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}

@@ -42,9 +42,9 @@ def new_fruit(request):
         # validate the form
         if form.is_valid():
             fruit = form.save(commit=False)
-            fruit.juice = request.fruit
+            # fruit.juice = request.fruit
             fruit.save()
-            return redirect('detail', fruit.id)
+            return redirect('fruits_detail', fruit.id)
     else:
         form = FruitForm()
     context = {'form': form}
