@@ -7,12 +7,30 @@ DRINK_TYPES = (
     ('D', 'Detox'),
     ('S', 'Sweet')
 )
+VITAMIN_TYPES = (
+  ('A', 'Necessary for proper vision and organ function.'),
+  ('B1', 'Helps convert nutrients into energy.'),
+  ('B2', 'Necessary for energy production, cell function and fat metabolism.'),
+  ('B3', 'Drives the production of energy from food.'),
+  ('B5', 'Necessary for fatty acid synthesis.'),
+  ('B6', 'Helps your body release sugar from stored carbohydrates for energy and create red blood cells.'),
+  ('B7', 'Plays a role in the metabolism of fatty acids, amino acids and glucose.'),
+  ('B9', 'Important for proper cell division.'),
+  ('B12', 'Necessary for red blood cell formation and proper nervous system and brain function.'),
+  ('C', 'Required for the creation of neurotransmitters and collagen, the main protein in your skin.'),
+  ('D', 'Promotes proper immune function and assists in calcium absorption and bone growth.'),
+  ('E', 'Assists immune function and acts as an antioxidant that protects cells from damage.'),
+  ('K', 'Required for blood clotting and proper bone development.'),
+  )
+
 
 # Create your models here.
 
 class Vitamin(models.Model):
-    name = models.CharField(max_length=10)
-    health_benefits = models.CharField(max_length=50)
+    name = models.CharField(
+        max_length=5,
+        choices=VITAMIN_TYPES
+    )
 
     def __str__(self):
         return self.name
@@ -22,8 +40,6 @@ class Vitamin(models.Model):
 
 class Fruit(models.Model):
     name = models.CharField(max_length=100)
-    region = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
     vitamins = models.ManyToManyField(Vitamin)
     
     def __str__(self):

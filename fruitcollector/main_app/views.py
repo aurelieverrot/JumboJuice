@@ -44,7 +44,7 @@ def signup(request):
 # VIEW ALL JUICES
 
 @login_required
-def juices_index(request):
+def juices_index(request): 
     juices = Juice.objects.all()
     return render(request, 'juices/index.html', { 'juices': juices} )
 
@@ -95,41 +95,42 @@ def juice_delete(request, juice_id):
 
 #------------------------------ OTHER
 
-
+# 
 @login_required
-def fruits_index(request):
-    fruits = Fruit.objects.all()
-    return render(request, 'fruits/index.html', { 'fruits': fruits })
-
-@login_required
-def fruits_detail(request, fruit_id):
+def fruits_detail(request, fruit_id): 
     fruit = Fruit.objects.get(id=fruit_id)
     # gets the vitamins not associated with the fruit
     vitamins_nonrelated = Vitamin.objects.exclude(id__in = fruit.vitamins.all().values_list('id'))
-    smoothie_form = SmoothieForm()
-    return render(request, 'fruits/detail.html', {'fruit':fruit, 'smoothie_form': smoothie_form, 'vitamins': vitamins_nonrelated })
+    juice_form = JuiceForm()
+    return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins_nonrelated })
+
+# form works
+@login_required
+def new_fruit(request): 
+    if request.method == 'POST':
+        form = FruitForm(request.POST)
+        # validate the form
+        if form.is_valid():
+            fruit = form.save(commit=False)
+            # fruit.juice = request.fruit
+            fruit.save()
+            return redirect('fruits_detail', fruit.id)
+    else:
+        form = FruitForm()
+    context = {'form': form}
+    return render(request, 'fruits/fruit_form.html', context)
+
+# works
+@login_required
+def fruits_index(request): 
+    fruits = Fruit.objects.all()
+    return render(request, 'fruits/index.html', { 'fruits': fruits })
 
 
 @login_required
 def assoc_vitamin(request, fruit_id, vitamin_id):
     Fruit.objects.get(id=fruit_id).vitamins.add(vitamin_id)
     return redirect('detail', fruit_id=fruit_id)
-
-@login_required
-def new_fruit(request):
-    if request.method == 'POST':
-        form = FruitForm(request.POST)
-        if form.is_valid():
-            fruit = form.save(commit=False)
-            fruit.user = request.user
-            fruit.save()
-            return redirect('detail', fruit.id)
-    else:
-        form = FruitForm()
-    context = {'form': form}
-    return render(request, 'fruits/fruit_form.html', context)
-
-
 
 def fruits_update(request, fruit_id):
     fruit = Fruit.objects.get(id=fruit_id)

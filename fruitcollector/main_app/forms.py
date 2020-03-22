@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from .models import Juice, Fruit
+from .models import Juice, Fruit, Profile
 
 class FruitForm(ModelForm):
     class Meta:
         model = Fruit
-        fields = ('name', 'region', 'description')
+        fields = ['name']
 
 class JuiceForm(ModelForm):
     class Meta:

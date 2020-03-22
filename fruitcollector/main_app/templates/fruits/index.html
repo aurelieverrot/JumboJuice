@@ -5,11 +5,9 @@
 
 {% for fruit in fruits %}
   <div class="card">
-    <a href="{% url 'detail' fruit.id %}">
+    <a href="{% url 'fruits_detail' fruit.id %}">
       <div class="card-content">
         <span class="card-title">{{ fruit.name }}</span>
-        <p>Region: {{ fruit.region }}</p>
-        <p>Description: {{ fruit.description }}</p>
       </div>
     </a>
   </div>

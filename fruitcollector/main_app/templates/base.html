@@ -33,7 +33,7 @@
             <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
             <li><a href="{% url 'juices_index' %}">View All Juices</a></li>
-            <!-- <li><a href="{% url 'juices_index' %}">View All Fruits</a></li> -->
+            <li><a href="{% url 'index' %}">View All Fruits</a></li>
             <li><a href="{% url 'new_juice' %}">Add a new Juice</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
