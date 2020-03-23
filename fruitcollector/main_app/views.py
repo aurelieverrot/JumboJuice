@@ -2,13 +2,12 @@ from django.shortcuts import render, redirect
 # Imports for signup
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 # Needed for protecting the routes
 from django.contrib.auth.decorators import login_required
-
-from .models import Fruit
-from .models import Vitamin
-from .models import Juice
-from .forms import JuiceForm, FruitForm
+from .models import Juice, Profile, Vitamin, Fruit
+from .forms import JuiceForm, FruitForm, UserForm, ProfileForm
+from django.db import transaction
 
 
 # Create your views here.
@@ -33,13 +32,39 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('profile')
         else:
             error_message = 'Invalid sign up - try again'
     # else render a template with a form for the user to enter their info.
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+# USER PROFILE
+def profile(request):
+    context = {'user': request.user}
+    return render(request, 'registration/profile.html', context)
+
+# UPDATE USER PROFILE
+
+@login_required
+@transaction.atomic
+def profile_update(request):
+    message =''
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            message = 'Profile successfully updated.'
+    user_form = UserForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'registration/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'message': message
+    })
 
 # VIEW ALL JUICES
 
@@ -93,9 +118,8 @@ def juice_delete(request, juice_id):
     return redirect('juices_index')
 
 
-#------------------------------ OTHER
+# VIEW FRUIT DETAIL
 
-# 
 @login_required
 def fruits_detail(request, fruit_id): 
     fruit = Fruit.objects.get(id=fruit_id)
@@ -104,7 +128,8 @@ def fruits_detail(request, fruit_id):
     juice_form = JuiceForm()
     return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins_nonrelated })
 
-# form works
+# ADD NEW FRUIT
+
 @login_required
 def new_fruit(request): 
     if request.method == 'POST':
@@ -120,17 +145,21 @@ def new_fruit(request):
     context = {'form': form}
     return render(request, 'fruits/fruit_form.html', context)
 
-# works
+# VIEW ALL FRUITS
+
 @login_required
 def fruits_index(request): 
     fruits = Fruit.objects.all()
     return render(request, 'fruits/index.html', { 'fruits': fruits })
 
+# VIEW VITAMINS IN FRUIT
 
 @login_required
 def assoc_vitamin(request, fruit_id, vitamin_id):
     Fruit.objects.get(id=fruit_id).vitamins.add(vitamin_id)
     return redirect('detail', fruit_id=fruit_id)
+
+# UPDATE FRUIT
 
 def fruits_update(request, fruit_id):
     fruit = Fruit.objects.get(id=fruit_id)
@@ -141,6 +170,8 @@ def fruits_update(request, fruit_id):
     else:
         form = FruitForm(instance=fruit)
     return render(request, 'fruits/fruit_form.html', { 'form': form})
+
+# DELETE FRUIT
 
 def fruits_delete(request, fruit_id):
     Fruit.objects.get(id=fruit_id).delete()
