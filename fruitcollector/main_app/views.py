@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 # Imports for signup
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -65,6 +65,16 @@ def profile_update(request):
         'profile_form': profile_form,
         'message': message
     })
+
+# DELETE USER PROFILE
+
+def profile_delete(request, user_id):
+    if request.method == 'POST':
+        print(f'deleting user {request.user}')
+        User.objects.filter(pk=request.user.pk).update(is_active=False, email='')
+        return redirect('logout')
+    else:
+        return redirect('/')
 
 # VIEW ALL JUICES
 

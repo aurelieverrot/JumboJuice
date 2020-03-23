@@ -10,6 +10,10 @@
   {{ profile_form.as_p }}
   <button type="submit">Save changes</button>
 </form>
+<form method="post" action="{% url 'profile_delete' user.id %}">
+  {% csrf_token %}
+  <input type="submit" name="Delete" value="Delete" />
+</form>
 
 
 {% endblock %}

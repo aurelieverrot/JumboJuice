@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import EmailField
 from django.urls import reverse
 from django.contrib.auth.models import User
 # Needed for user profile views
@@ -69,6 +70,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=50)
     bio = models.CharField(max_length=250)
     fav_juice = models.CharField(max_length=50)
+    REQUIRED_FIELDS = ['first_name', 'last_name','bio', 'fav_juice']
 
     def __str__(self):
       return f'{self.first_name}'

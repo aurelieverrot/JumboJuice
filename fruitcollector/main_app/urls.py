@@ -19,7 +19,8 @@ urlpatterns = [
     # path('fruits/<int:fruit_id>/assoc_vitamin/<int:vitamin_id>', views.assoc_vitamin, name='assoc_vitamin'),
     path('accounts/signup', views.signup, name='signup'),
     path('profile/', views.profile_update, name='profile'),
-    path('profile/<int:user_id>', views.profile_update, name='profile_update')
+    path('profile/<int:user_id>', views.profile_update, name='profile_update'),
+    path('profile/<int:user_id>/delete', views.profile_delete, name='profile_delete')
 ]
 
 # The name='home' kwarg is optional but will come in handy for referencing the URL in other parts of the app, especially from within templates.
