@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import Juice, Fruit, Profile, Vitamin
+from django import forms
+from .models import Juice, Fruit, Profile, Vitamin, VITAMIN_TYPES
 
 class FruitForm(ModelForm):
     class Meta:
@@ -15,7 +16,5 @@ class ProfileForm(ModelForm):
     pass
   # to allow User to edit or delete the profile
   
-class VitaminForm(ModelForm):
-    class Meta:
-        model = Vitamin
-        fields = ['name']
+class AddVitaminForm(forms.Form):
+    vitamins = forms.ModelMultipleChoiceField(queryset=Vitamin.objects.all())

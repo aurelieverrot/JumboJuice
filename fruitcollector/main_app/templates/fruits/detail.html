@@ -9,10 +9,7 @@
             <div class="card-content">
                 <span class="card-title">{{ fruit.name }}</span>
             </div>
-            {% comment %} <div class="card-action">
-                <a href="{% url 'fruits_update' fruit.id %}">Edit</a>
-                <a href="{% url 'fruits_delete' fruit.id %}">Delete</a>
-            </div> {% endcomment %}
+           
         </div>
     </div>
 
@@ -20,14 +17,13 @@
 <div class="row">
     <div class="col s6">
         <h3>{{ fruit.name }}'s Vitamins</h3>
-        {% comment %} {% if fruit.vitamins.count %} {% endcomment %}
         {% for vitamin in fruit.vitamins.all %}
         <div class="card">
             <div class="card-content">
                 <span class="card-title">
                     <span>Vitamin {{ vitamin.name }} </span> 
                 </span>
-                <span>{{ vitamin }}</span>
+                <span>{{ vitamin.get_name_display }}</span>
             </div>
         </div>
         {% endfor %}
@@ -38,8 +34,7 @@
 
 <div class="col s6">
   <h3>Available Vitamins</h3>
-  
-  <form  method="POST">
+  <form action="{% url 'add_vitamin' fruit.id %}" method="POST">
         {% csrf_token %}
         {{ vitamin_form.as_p }}
         <input type="submit" class="btn" value="Add Vitamin">
@@ -47,34 +42,6 @@
 
 </div> 
 
-{% comment %} <div class="col s6">
-    <h3>Smoothie ideas</h3>
-    <!-- form code below -->
-    <form action="{% url 'add_smoothie' fruit.id %}" method="post">
-        {% csrf_token %}
-        {{ smoothie_form.as_p }}
-        <input type="submit" class="btn" value="Add Smoothie">
-    </form>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Drink type</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for smoothie in fruit.smoothie_set.all %}
-            <tr>
-                <td>{{smoothie.name}}</td>
-                <td>{{smoothie.description}}</td>
-                <td>{{smoothie.get_drink_type_display}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-</div> {% endcomment %}
 
 <script>
     //   add additional JS to initialize select below

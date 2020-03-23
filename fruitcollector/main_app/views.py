@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Fruit
 from .models import Vitamin
 from .models import Juice
-from .forms import JuiceForm, FruitForm, VitaminForm
+from .forms import JuiceForm, FruitForm, AddVitaminForm
 
 
 # Create your views here.
@@ -101,7 +101,7 @@ def fruits_detail(request, fruit_id):
     fruit = Fruit.objects.get(id=fruit_id)
     vitamins_not_assoc = Vitamin.objects.exclude(id__in = fruit.vitamins.all().values_list('id'))
 
-    vitamin_form = VitaminForm()
+    vitamin_form = AddVitaminForm()
     vitamins = fruit.vitamins.all()
     return render(request, 'fruits/detail.html', {'fruit': fruit, 'vitamin_form': vitamin_form, 'vitamins': vitamins_not_assoc })
 
@@ -139,18 +139,20 @@ def fruits_update(request, fruit_id):
         return redirect('detail', fruit.id)
     else:
         form = FruitForm(instance=fruit)
-    return render(request, 'fruits/fruit_form.html', { 'form': form})
+    return render(request, 'fruits/fruit_form.html', { 'form': form })
 
 def fruits_delete(request, fruit_id):
     Fruit.objects.get(id=fruit_id).delete()
     return redirect('index')
 
 
-# @login_required
-# def add_vitamin(request, fruit_id):
-#     form = VitaminForm(request.POST)
-#     if form.is_valid():
-#         new_vitamin = form.save(commit=False)
-#         new_vitamin.fruit_id = fruit_id
-#         new_vitamin.save()
-#     return redirect('detail', fruit_id=fruit_id)
+@login_required
+def add_vitamin(request, fruit_id):
+    form = AddVitaminForm(request.POST)
+    vitamin = Vitamin.objects.get(id=request.POST['vitamins'][0])
+    
+    if form.is_valid():
+        # makes the connection between fruit id and vitamin id
+        Fruit.objects.get(id=fruit_id).vitamins.add(vitamin.id)
+        
+    return redirect('fruits_detail', fruit_id=fruit_id)
