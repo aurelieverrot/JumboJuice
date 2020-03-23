@@ -14,3 +14,8 @@ class JuiceForm(ModelForm):
 class ProfileForm(ModelForm):
     pass
   # to allow User to edit or delete the profile
+  
+class VitaminForm(ModelForm):
+    class Meta:
+        model = Vitamin
+        fields = ['name']

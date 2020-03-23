@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Fruit
 from .models import Vitamin
 from .models import Juice
-from .forms import JuiceForm, FruitForm
+from .forms import JuiceForm, FruitForm, VitaminForm
 
 
 # Create your views here.
@@ -99,10 +99,11 @@ def juice_delete(request, juice_id):
 @login_required
 def fruits_detail(request, fruit_id): 
     fruit = Fruit.objects.get(id=fruit_id)
-    # gets the vitamins not associated with the fruit
+    vitamins_not_assoc = Vitamin.objects.exclude(id__in = fruit.vitamins.all().values_list('id'))
+
+    vitamin_form = VitaminForm()
     vitamins = fruit.vitamins.all()
-    juice_form = JuiceForm()
-    return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins })
+    return render(request, 'fruits/detail.html', {'fruit': fruit, 'vitamin_form': vitamin_form, 'vitamins': vitamins_not_assoc })
 
 # form works
 @login_required
@@ -112,7 +113,6 @@ def new_fruit(request):
         # validate the form
         if form.is_valid():
             fruit = form.save(commit=False)
-            # fruit.juice = request.fruit
             fruit.save()
             return redirect('fruits_detail', fruit.id)
     else:
@@ -146,3 +146,11 @@ def fruits_delete(request, fruit_id):
     return redirect('index')
 
 
+# @login_required
+# def add_vitamin(request, fruit_id):
+#     form = VitaminForm(request.POST)
+#     if form.is_valid():
+#         new_vitamin = form.save(commit=False)
+#         new_vitamin.fruit_id = fruit_id
+#         new_vitamin.save()
+#     return redirect('detail', fruit_id=fruit_id)
