@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Fruit Details</h1>
+<h1>{{ fruit.name }} Details</h1>
 
 <div class="row">
     <div class="col s6">
@@ -17,30 +17,29 @@
     </div>
 
 <hr>
-{% comment %} <div class="row">
+<div class="row">
     <div class="col s6">
         <h3>{{ fruit.name }}'s Vitamins</h3>
-        {% if fruit.vitamins.count %}
+        {% comment %} {% if fruit.vitamins.count %} {% endcomment %}
         {% for vitamin in fruit.vitamins.all %}
         <div class="card">
             <div class="card-content">
                 <span class="card-title">
                     <span>Vitamin {{ vitamin.name }} </span> 
                 </span>
-                <span>{{ vitamin.health_benefits }}</span>
+                <span>{{ vitamin }}</span>
             </div>
         </div>
         {% endfor %}
-        {% else %}
+        {% comment %} {% else %}
         <h5>No vitamins found yet</h5>
-        {% endif %}
+        {% endif %} {% endcomment %}
     </div>
 </div>
 
 <!-- Available vitamins -->
-</div>
-<!-- Available toys will come after this line -->
-<div class="col s6">
+
+{% comment %} <div class="col s6">
   <h3>Available Vitamins</h3>
   {% if vitamins.count %}
     {% for vitamin in vitamins.all %}
@@ -62,9 +61,9 @@
   {% else %}
     <h5>{{Fruit.name}} Already Has All Vitamins</h5>
   {% endif %}
-</div>
+</div> {% endcomment %}
 
-<div class="col s6">
+{% comment %} <div class="col s6">
     <h3>Smoothie ideas</h3>
     <!-- form code below -->
     <form action="{% url 'add_smoothie' fruit.id %}" method="post">
@@ -91,11 +90,11 @@
         </tbody>
     </table>
 </div>
-</div>
+</div> {% endcomment %}
 
 <script>
     //   add additional JS to initialize select below
     var selectEl = document.getElementById('id_drink_type');
     M.FormSelect.init(selectEl);
-</script> {% endcomment %}
+</script> 
 {% endblock %}

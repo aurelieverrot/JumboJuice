@@ -100,9 +100,9 @@ def juice_delete(request, juice_id):
 def fruits_detail(request, fruit_id): 
     fruit = Fruit.objects.get(id=fruit_id)
     # gets the vitamins not associated with the fruit
-    vitamins_nonrelated = Vitamin.objects.exclude(id__in = fruit.vitamins.all().values_list('id'))
+    vitamins = fruit.vitamins.all()
     juice_form = JuiceForm()
-    return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins_nonrelated })
+    return render(request, 'fruits/detail.html', {'fruit': fruit, 'juice_form': juice_form, 'vitamins': vitamins })
 
 # form works
 @login_required
@@ -126,7 +126,6 @@ def fruits_index(request):
     fruits = Fruit.objects.all()
     return render(request, 'fruits/index.html', { 'fruits': fruits })
 
-
 @login_required
 def assoc_vitamin(request, fruit_id, vitamin_id):
     Fruit.objects.get(id=fruit_id).vitamins.add(vitamin_id)
@@ -145,3 +144,5 @@ def fruits_update(request, fruit_id):
 def fruits_delete(request, fruit_id):
     Fruit.objects.get(id=fruit_id).delete()
     return redirect('index')
+
+

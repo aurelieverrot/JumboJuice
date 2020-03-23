@@ -33,7 +33,7 @@ class Vitamin(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f'{self.get_name_display()}'
 
     def get_absolute_url(self):
         return reverse('vitamin_detail', kwargs={'pk': self.id})
