@@ -176,3 +176,12 @@ select#id_vitamins {
 .navbar-toggler {
   border-color: white;
 }
+
+.fa {
+  color: white !important;
+  margin: auto;
+}
+
+#new_fruit_btn {
+  margin-bottom: 20px;
+}

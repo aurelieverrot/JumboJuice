@@ -6,7 +6,7 @@ from .models import Juice, Fruit, Profile, Vitamin, VITAMIN_TYPES
 class FruitForm(ModelForm):
     class Meta:
         model = Fruit
-        fields = ['name', 'vitamins']
+        fields = ['name']
 
 class JuiceForm(ModelForm):
     class Meta:

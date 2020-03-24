@@ -3,6 +3,8 @@
 
 <h1>Fruit List</h1>
 
+<a href="{% url 'new_fruit' %}" class="btn" id="new_fruit_btn">Add new fruit</a>
+
 {% for fruit in fruits %}
   <div class="card">
     <a href="{% url 'fruits_detail' fruit.id %}">
