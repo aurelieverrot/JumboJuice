@@ -18,6 +18,11 @@ footer {
     color: grey;
   }
 
+.card {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
 .page-footer {
   background-color: #009687;
   color: white;
@@ -35,13 +40,113 @@ select {
 .navbar {
   background-color: #009687;   
 }
+
 a {
   color: white;
   padding: 0px 15px;
 }
+
 a.navbar-brand {
   font-size: 31.5px;
 }
+
+input.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: #009687;
+  border: 1px solid #009687;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input#id_username,
+input#id_password, input#id_password1, input#id_password2 {
+  display: block;
+  width: 50%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+h1 {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+label {
+  font-weight: 600;
+}
+
+h5.card-title {
+  font-size: 40px;
+}
+
+img.card-img {
+  height: 200px;
+  width: 200px;
+}
+
+div.card-body {
+  padding: 25px;
+  padding-left: 20px;
+}
+
+a.btn.btn-primary {
+  background-color: #009687;
+  border-color: #009687;
+}
+
+h3.card-subtitle {
+  box-sizing:border-box;
+  color:rgb(33, 37, 41);
+  display:block;
+  font-family:-apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size:28px;
+  font-weight:400;
+  height:33px;
+  line-height:33.6px;
+  margin-block-end:8px;
+  margin-block-start:0px;
+  margin-bottom:8px;
+  margin-inline-end:0px;
+  margin-inline-start:0px;
+  margin-top:0px;
+  overflow-wrap:break-word;
+  text-align:left;
+  text-size-adjust:100%;
+  width:268.656px;
+}
+
+a:hover, a:focus {
+  text-decoration: none !important;
+}
+
+div.col-sm-6 {
+  margin-bottom: 5% !important;
+  max-width: 80%;
+}
+
+select#id_vitamins {
+  width: 298px;
+}
+
+/* ANCA */
 
 #juice {
   width: 200px;
@@ -57,4 +162,17 @@ a.navbar-brand {
 
 .card-link {
   color: #009687;
+}
+
+
+#id_description {
+  width: 100%;
+}
+
+.col-md-8 {
+  padding-left: 30px !important;
+}
+
+.navbar-toggler {
+  border-color: white;
 }

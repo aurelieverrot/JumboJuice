@@ -2,50 +2,29 @@
 {% block content %}
 
 <h1>{{ fruit.name }} Details</h1>
-
-<div class="row">
-    <div class="col s6">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">{{ fruit.name }}</span>
-            </div>
-           
-        </div>
-    </div>
-
-<hr>
-<div class="row">
-    <div class="col s6">
-        <h3>{{ fruit.name }}'s Vitamins</h3>
+<div class="container">
+    <div class="col-sm-6">
+        <h3>{{ fruit.name }}’s Vitamins</h3>
         {% for vitamin in fruit.vitamins.all %}
         <div class="card">
             <div class="card-content">
                 <span class="card-title">
-                    <span>Vitamin {{ vitamin.name }} </span> 
+                    <span>Vitamin {{ vitamin.name }} </span>
                 </span>
                 <span>{{ vitamin.get_name_display }}</span>
             </div>
         </div>
         {% endfor %}
     </div>
+    <!-- Available vitamins -->
+    <div class="col-sm-6">
+        <h3>Available Vitamins</h3>
+        <form action="{% url 'add_vitamin' fruit.id %}" method='POST'>
+            {% csrf_token %}
+            {{ vitamin_form.as_p }}
+            <input type="submit" class="btn" value="Add Vitamin">
+        </form>
+    </div>
 </div>
 
-<!-- Available vitamins -->
-
-<div class="col s6">
-  <h3>Available Vitamins</h3>
-  <form action="{% url 'add_vitamin' fruit.id %}" method="POST">
-        {% csrf_token %}
-        {{ vitamin_form.as_p }}
-        <input type="submit" class="btn" value="Add Vitamin">
-  </form>
-
-</div> 
-
-
-<script>
-    //   add additional JS to initialize select below
-    var selectEl = document.getElementById('id_name');
-    M.FormSelect.init(selectEl);
-</script> 
 {% endblock %}
