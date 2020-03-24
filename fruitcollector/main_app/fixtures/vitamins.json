@@ -1,0 +1,40 @@
+
+ 
+  
+[
+  {
+    "model": "main_app.Vitamin",
+    "pk": 1,
+    "fields": {
+      "name": "A"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 2,
+    "fields": {
+      "name": "B1"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 3,
+    "fields": {
+      "name": "B2"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 4,
+    "fields": {
+      "name": "B3"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 5,
+    "fields": {
+      "name": "C"
+    }
+  }
+]

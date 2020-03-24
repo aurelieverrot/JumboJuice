@@ -1,6 +1,10 @@
 from django.db import models
+from django.db.models import EmailField
 from django.urls import reverse
 from django.contrib.auth.models import User
+# Needed for user profile views
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 DRINK_TYPES = (
     ('G', 'Greens'),
@@ -28,15 +32,13 @@ VITAMIN_TYPES = (
 
 class Vitamin(models.Model):
     name = models.CharField(
-        max_length=5,
+        max_length=250,
         choices=VITAMIN_TYPES
     )
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
-    def get_absolute_url(self):
-        return reverse('vitamin_detail', kwargs={'pk': self.id})
 
 class Fruit(models.Model):
     name = models.CharField(max_length=100)
@@ -61,12 +63,24 @@ class Juice(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     bio = models.CharField(max_length=250)
     fav_juice = models.CharField(max_length=50)
+    REQUIRED_FIELDS = ['first_name', 'last_name','bio', 'fav_juice']
 
     def __str__(self):
       return f'{self.first_name}'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    print(f'create_user_profile: {instance}')
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    print(f'save_user_profile: {instance}')
+    instance.profile.save()
 
