@@ -1,13 +1,12 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Juice, Fruit, Profile
 from django.contrib.auth.models import User
-
+from .models import Juice, Fruit, Profile, Vitamin, VITAMIN_TYPES
 
 class FruitForm(ModelForm):
     class Meta:
         model = Fruit
-        fields = ['name']
+        fields = ['name', 'vitamins']
 
 class JuiceForm(ModelForm):
     class Meta:
@@ -31,5 +30,6 @@ class ProfileForm(ModelForm):
             'bio': 'About me', 
             'fav_juice': 'My favorite juice'
             }
-     
-
+  
+class AddVitaminForm(forms.Form):
+    vitamins = forms.ModelMultipleChoiceField(queryset=Vitamin.objects.all())

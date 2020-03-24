@@ -32,15 +32,13 @@ VITAMIN_TYPES = (
 
 class Vitamin(models.Model):
     name = models.CharField(
-        max_length=5,
+        max_length=250,
         choices=VITAMIN_TYPES
     )
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
-    def get_absolute_url(self):
-        return reverse('vitamin_detail', kwargs={'pk': self.id})
 
 class Fruit(models.Model):
     name = models.CharField(max_length=100)
