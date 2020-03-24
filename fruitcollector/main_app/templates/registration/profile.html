@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Welcome, {{ user.username }}</h1>
+{% if message %}<p class="green-text">{{ message }}</p>{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+<form method="post" action="{% url 'profile_delete' user.id %}">
+  {% csrf_token %}
+  <input type="submit" name="Delete" value="Delete" />
+</form>
+
+
+{% endblock %}

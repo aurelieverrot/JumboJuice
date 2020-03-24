@@ -3,13 +3,13 @@
 
 <h1>Fruit List</h1>
 
+<a href="{% url 'new_fruit' %}" class="btn" id="new_fruit_btn">Add new fruit</a>
+
 {% for fruit in fruits %}
   <div class="card">
-    <a href="{% url 'detail' fruit.id %}">
-      <div class="card-content">
-        <span class="card-title">{{ fruit.name }}</span>
-        <p>Region: {{ fruit.region }}</p>
-        <p>Description: {{ fruit.description }}</p>
+    <a href="{% url 'fruits_detail' fruit.id %}">
+      <div class="card-body">
+        <h3 class="card-subtitle">{{ fruit.name }}</h3>
       </div>
     </a>
   </div>

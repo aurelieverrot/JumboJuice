@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Juice Details</h1>
+
+
+<div class="card" style="width: 18rem;">
+  <img src="../../static/css/assets/Image3.png" class="card-img-top" alt="juice">
+  <div class="card-body">
+    <h5 style="font-weight: bolder;" class="card-title">{{ juice.name }}</h5>
+    <p class="card-text">{{ juice.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li style="font-weight: bolder;" class="list-group-item">Fruits:</li>
+    {% for fruit in juice.fruits.all %}
+    <li class="list-group-item">
+      {{ fruit }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Drink type: {{ juice.get_drink_type_display }}</li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'juice_update' juice.id %}" class="card-link">Edit</a>
+    <a href="{% url 'juice_delete' juice.id %}" class="card-link">Delete</a>
+  </div>
+</div>
+
+
+{% endblock %}
