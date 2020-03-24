@@ -29,3 +29,15 @@ footer {
 select {
   display: block;
 }
+
+/* Sonia's CSS */
+.navbar {
+  background-color: #009687;   
+}
+a {
+  color: white;
+  padding: 0px 15px;
+}
+a.navbar-brand {
+  font-size: 31.5px;
+}
