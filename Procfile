@@ -1,0 +1,1 @@
+web: cd fruitcollector && gunicorn fruitcollector.wsgi

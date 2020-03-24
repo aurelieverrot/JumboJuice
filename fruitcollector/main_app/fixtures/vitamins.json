@@ -34,7 +34,70 @@
     "model": "main_app.Vitamin",
     "pk": 5,
     "fields": {
+      "name": "B4"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 6,
+    "fields": {
+      "name": "B5"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 7,
+    "fields": {
+      "name": "B6"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 8,
+    "fields": {
+      "name": "B7"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 9,
+    "fields": {
+      "name": "B9"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 10,
+    "fields": {
+      "name": "B12"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 11,
+    "fields": {
       "name": "C"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 12,
+    "fields": {
+      "name": "D"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 13,
+    "fields": {
+      "name": "E"
+    }
+  },
+  {
+    "model": "main_app.Vitamin",
+    "pk": 14,
+    "fields": {
+      "name": "K"
     }
   }
 ]
