@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django import forms
+from django.contrib.auth.models import User
 from .models import Juice, Fruit, Profile, Vitamin, VITAMIN_TYPES
 
 class FruitForm(ModelForm):
@@ -12,9 +13,23 @@ class JuiceForm(ModelForm):
         model = Juice
         fields = ['name', 'description', 'drink_type', 'fruits']
 
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('email','first_name', 'last_name')
+    first_name = forms.CharField(required=True, max_length=100)
+    last_name = forms.CharField(required=True, max_length=100)
+    email = forms.EmailField(required=True, max_length=100)
+
 class ProfileForm(ModelForm):
-    pass
-  # to allow User to edit or delete the profile
+    class Meta:
+        model = Profile
+        fields = ('bio', 'fav_juice')
+        # shows the labels in html
+        labels = {
+            'bio': 'About me', 
+            'fav_juice': 'My favorite juice'
+            }
   
 class AddVitaminForm(forms.Form):
     vitamins = forms.ModelMultipleChoiceField(queryset=Vitamin.objects.all())
