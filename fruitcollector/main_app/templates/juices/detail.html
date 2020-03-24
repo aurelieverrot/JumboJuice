@@ -1,45 +1,32 @@
-
 {% extends 'base.html' %}
 {% block content %}
 
 <h1>Juice Details</h1>
 
 
+<div class="card" style="width: 18rem;">
+  <img src="../../static/css/assets/Image3.png" class="card-img-top" alt="juice">
+  <div class="card-body">
+    <h5 style="font-weight: bolder;" class="card-title">{{ juice.name }}</h5>
+    <p class="card-text">{{ juice.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li style="font-weight: bolder;" class="list-group-item">Fruits:</li>
+    {% for fruit in juice.fruits.all %}
+    <li class="list-group-item">
+      {{ fruit }}
+    </li>
+    {% endfor %}
+  </ul>
 
-<div class="card mb-3" style="max-width: 540px;">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="../../static/css/assets/Image3.png" class="card-img" width="100%" height="60%" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ juice.name }}</h5>
-        <p class ="card-text">Description: {{ juice.description }}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        <h3>Fruits:</h3>
-        <ul class="list-group list-group-flush"> 
-        {% for fruit in juice.fruits.all %}
-        <li class="list-group-item">{{ fruit }}
-            {% for vitamin in fruit.vitamins.all %}
-              <p>{{ vitamin.name }}</p>
-          {% endfor %}
-          </li>
-        {% endfor %}
-        </ul>
-      </div>
-    </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Drink type: {{ juice.get_drink_type_display }}</li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'juice_update' juice.id %}" class="card-link">Edit</a>
+    <a href="{% url 'juice_delete' juice.id %}" class="card-link">Delete</a>
   </div>
 </div>
-<div class="card-body">
-  <a href="{% url 'juice_update' juice.id %}" class="card-link">Edit</a>
-  <a href="{% url 'juice_delete' juice.id %}" class="card-link">Delete</a>
-</div>
 
-<script>
-  //   add additional JS to initialize select below
-  var selectEl = document.getElementById('id_drink_type');
-  M.FormSelect.init(selectEl);
-</script>
+
 {% endblock %}
-
-

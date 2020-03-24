@@ -14,12 +14,9 @@ urlpatterns = [
     path('fruits/new/', views.new_fruit, name='new_fruit'),
     path('fruits/', views.fruits_index, name='index'),
     path('fruits/<int:fruit_id>', views.fruits_detail, name='fruits_detail'),
-    # path('fruits/<int:fruit_id>/edit', views.fruits_update, name='fruits_update'),
-    # path('fruits/<int:fruit_id>/delete', views.fruits_delete, name='fruits_delete'),
     path('fruits/<int:fruit_id>/add_vitamin', views.add_vitamin, name='add_vitamin'),
     path('accounts/signup', views.signup, name='signup'),
     path('profile/', views.profile_update, name='profile'),
-    path('profile/<int:user_id>', views.profile_update, name='profile_update'),
     path('profile/<int:user_id>/delete', views.profile_delete, name='profile_delete')
 ]
 

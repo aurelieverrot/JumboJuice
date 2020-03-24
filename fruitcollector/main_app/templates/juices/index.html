@@ -5,22 +5,14 @@
 
 
 {% for juice in juices %}
-  <div class="card">
-    <a href="{% url 'juice_detail' juice.id %}">
-      <div class="card-content">
-        <span class="card-title">{{ juice.name }}</span>
-        <p>Description: {{ juice.description }}</p>
-        <!-- Loops through fruits and adds them to the card -->
-        <ul>Fruits: 
-        {% for fruit in juice.fruits.all %}
-        <li>
-          {{ fruit }}
-        </li>
-        {% endfor %}
-        </ul>
-      </div>
-    </a>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ juice.name }}</h5>
+    <p class="card-text">{{ juice.description }}</p>
+    <a href="{% url 'juice_detail' juice.id %}" class="btn btn-primary" id="findMore">Find out more</a>
   </div>
+</div>
 {% endfor %} 
+
 
 {% endblock %}

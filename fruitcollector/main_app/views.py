@@ -42,7 +42,7 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 # USER PROFILE
-
+@login_required
 def profile(request):
     context = {'user': request.user}
     return render(request, 'registration/profile.html', context)
@@ -69,7 +69,7 @@ def profile_update(request):
     })
 
 # DELETE USER PROFILE
-
+@login_required
 def profile_delete(request, user_id):
     if request.method == 'POST':
         print(f'deleting user {request.user}')
@@ -95,6 +95,8 @@ def new_juice(request):
             juice = form.save(commit=False)
             juice.user = request.user
             juice.save()
+            # saving the many-to-many relationship - juice - fruits
+            form.save_m2m()
             return redirect('juice_detail', juice.id)
     else:
         form = JuiceForm()
@@ -112,7 +114,7 @@ def juice_detail(request, juice_id):
     return render(request, 'juices/detail.html', {'juice':juice, 'juice_form': juice_form })
 
 # JUICE UPDATE
-
+@login_required
 def juice_update(request, juice_id):
     juice = Juice.objects.get(id=juice_id)
     if request.method == 'POST':
@@ -124,7 +126,7 @@ def juice_update(request, juice_id):
     return render(request, 'juices/juice_form.html', { 'form': form})
 
 # JUICE DELETE
-
+@login_required
 def juice_delete(request, juice_id):
     Juice.objects.get(id=juice_id).delete()
     return redirect('juices_index')
@@ -166,7 +168,7 @@ def fruits_index(request):
 
 
 # UPDATE FRUIT
-
+@login_required
 def fruits_update(request, fruit_id):
     fruit = Fruit.objects.get(id=fruit_id)
     if request.method == 'POST':
