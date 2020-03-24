@@ -67,7 +67,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     bio = models.CharField(max_length=250)
-    fav_juice = models.CharField(max_length=50)
+    fav_juice = models.ForeignKey(Juice, on_delete=models.SET_NULL, blank=True, null=True)
     REQUIRED_FIELDS = ['first_name', 'last_name','bio', 'fav_juice']
 
     def __str__(self):

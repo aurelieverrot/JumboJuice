@@ -20,6 +20,7 @@ footer {
 
 .page-footer {
   background-color: #009687;
+  color: white;
 }
 
 .card-content {
@@ -40,4 +41,20 @@ a {
 }
 a.navbar-brand {
   font-size: 31.5px;
+}
+
+#juice {
+  width: 200px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.btn, .btn-primary {
+  background-color: #009687 !important;
+  border-color: #009687 !important;
+  color: white;
+}
+
+.card-link {
+  color: #009687;
 }
